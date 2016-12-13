@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Twinkle Twinkle Little Star</title>
+      <style>
+         body { margin:0;padding:0; background-color#000; }
+         #about { color:#fff; width: 30%; margin:2em auto; padding:1em; font-size:18px; font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; position:relative; z-index:999; }
+         #canvas { position:absolute; top:0px; left:0px; width:100%;height:100%;}
+      </style>
+   </head>
+   <body>
+      <canvas id="canvas" height="1000" width="800"></canvas>
+      <div id="about"> This page is a simple Javascript canvas experiment to attempt to reproduce the subtle "twinkle" effect that stars appear to have when looking at them through the Earth's atmosphere. I feel the twinkling acheived programmatically on this is a satifactory representation with the aforementioned "subtleness" of the twinkle apparent but not excessive.  </div>
+      <script>
+      function draw() {
+         var centerH = window.innerWidth / 2;
+         var centerV = window.innerHeight / 2;
+         var color = 0x000000;
+
+         if (canvas.getContext){
+             var ctx = canvas.getContext('2d');
+             
+             var fillstyle = "rgb(0,0,0)";
+             ctx.fillStyle = fillstyle;
+             ctx.fillRect(0,0,canvas.width,canvas.height);
+                // ctx.fillStyle = "rgb("+rnd(255,0)+", "+rnd(255,0)+","+rnd(255,0)+")";
+                // ctx.fill();
+            ctx.fillStyle = "rgb(255,255,255)";
+            ctx.strokeStyle = "rgb(215,215,215)";
+            for (var i=0; i<300; i++) {
+               ctx.beginPath();
+               var x=stars[i].x, y=stars[i].y, size=stars[i].size;
+               var brt = rnd(255,180);
+               ctx.strokeStyle = "rgb("+brt+","+brt+","+brt+")";
+
+               if (Math.random()>0.5) {
+                  ctx.moveTo(x-(size), y-(size));
+                  ctx.lineTo(x+(size),y+(size));
+                  ctx.moveTo(x+(size), y-(size));
+                  ctx.lineTo(x-(size), y+(size));
+               } else {
+              //ctx.arc(x, y, size, 0, Math.PI*2,true);
+                  ctx.moveTo(x-(size*2), y);
+                  ctx.lineTo(x+(size*2),y);
+                  ctx.moveTo(x, y-(size*2));
+                  ctx.lineTo(x,y+(size*2));
+               }
+               ctx.stroke();
+              }
+            }
+         }
+         var stars = [];
+         function genStars() {
+            for (var i=0; i<300; i++) {
+               var x=rnd(canvas.width,0), y=rnd(canvas.height,0), size=rnd(2,1);
+               stars.push({x:x, y:y, size: size});
+            }
+         }
+         function init() {
+            canvas = document.getElementById('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            genStars();
+            draw();
+            setInterval(draw,112);
+         }
+         function rnd(cnt,min) {
+            return Math.round(Math.random()*(cnt-min))+min;
+         }
+         init();
+      </script>
+   </body>
+</html>
