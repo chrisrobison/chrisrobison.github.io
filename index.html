@@ -58,7 +58,7 @@
             top: 0px;
             padding-bottom: 1em;
             left: 0px;
-            background-color: #111;
+            background-color: #333;
             overflow-x: hidden;
             transition: all 500ms ease-in-out;
             white-space: nowrap;
@@ -303,7 +303,7 @@
                                 if (name == "default") {
                                     clsname = " class='selected'";
                                 }
-                                out += "<a target='viewer'" + clsname + " href='resumes/" + name + ".html' class='themeLink'>" + (name.charAt(0).toUpperCase() + name.slice(1)) + "</a>";
+                                out += "<a target='viewer'" + clsname + " href='resumes/" + name + ".html'>" + (name.charAt(0).toUpperCase() + name.slice(1)) + "</a>";
                             } else {
                                 //console.log("Skipping " + name);
                             }
